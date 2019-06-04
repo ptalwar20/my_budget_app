@@ -27,7 +27,7 @@
     </section>
     <section id="add-section">
       <div class="add__form--group">
-        <form>
+        
           <select class="add__type">
             <option value="inc">+</option>
             <option value="exp">-</option>
@@ -35,19 +35,25 @@
           <input type="text" class="add__description" placeholder="Add Description">
           <input type="number" class="add__value" placeholder="Value">
           <button type="submit" class="add__btn">Submit</button>
-        </form>
+      
       </div>
     </section>
     <section id="show-items">
       <div class="show__incomes">
-        <h3>Income</h3>
+        <h3 class="show__incomes--title">Income</h3>
         <hr>
-        <div class="show__incomes--item"></div>
+        <div class="show__incomes--items">
+          <!-- <div class="item">
+            <h3>id</h3>
+            <h3>description</h3>
+            <h3 class="value">value</h3>
+          </div> -->
+        </div>
       </div>
       <div class="show__expenses">
-        <h3>Expenses</h3>
+        <h3 class="show__expenses--title">Expenses</h3>
         <hr>
-        <div class="show__expenses--item"></div>
+        <div class="show__expenses--items"></div>
       </div>
     </section>
   </div>

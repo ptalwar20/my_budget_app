@@ -63,7 +63,7 @@ body {
   justify-content: center;
   padding: 10px;
 }
-#show-items .show__incomes h3 {
+#show-items .show__incomes .show__incomes--title {
   color: green;
 }
 
@@ -73,6 +73,18 @@ body {
   padding: 10px;
 }
 
-#show-items .show__expenses h3 {
+#show-items .show__expenses .show__expenses--title {
   color: red;
+}
+#show-items .item {
+  display: flex;
+
+}
+
+#show-items .item h3 {
+  padding-right: 20px;
+}
+
+#show-items .item .value {
+margin-left: 120px;
 }
