@@ -30,16 +30,24 @@ var budgetController = (function(){
       }
       if(newItem.type==='inc'){
         addedItem = new Income(ID,newItem.description,newItem.value);
+        data.total_income+=newItem.value;
         data.allItems.inc.push(addedItem);
       } else if(newItem.type==='exp'){
         addedItem = new Expense(ID,newItem.description,newItem.value);
+        data.total_expenses+=newItem.value;
         data.allItems.exp.push(addedItem);
       }
       return addedItem;
     },
-    getData: function(){
-      console.log(data);
+    getTotalIncome: function(){
+      return data.total_income;
       
+    },
+    getTotalExpenses: function(){
+      return data.total_expenses;
+    },
+    calculateBudget: function(){
+      return data.total_income - data.total_expenses;
     }
   };
 })();
@@ -56,7 +64,7 @@ var UIController = (function(){
     },
     //2. Add listItem from data to UI
     addListItem: function(obj,type){
-      console.log(obj);
+      // console.log(obj);
       var html, newHtml;
       html = '<div class="item item-%id%"><h3>%id%</h3><h3>%description%</h3><h3 class="value">%value%</h3></div>';
     newHtml = html.replace(/%id%/g,obj.id);
@@ -67,6 +75,11 @@ var UIController = (function(){
     } else if(type==='exp') {
       document.querySelector('.show__expenses--items').insertAdjacentHTML('beforeend',newHtml);
     }
+  },
+  displayBudget: function(budget,tInc,tExp){
+    document.querySelector('.budget__value').textContent = budget;
+    document.querySelector('.budget__income--value').textContent = tInc;
+    document.querySelector('.budget__expenses--value').textContent = tExp;
   }
 };
 })();
@@ -83,13 +96,19 @@ var controller = (function(budgetCtrl,UICtrl){
   };
 
   var ctrlAddItem = function(){
-    var listItem, newItem;
+    var listItem, newItem, budget,tIncome,tExpenses;
     //1. Get Input Values
     newItem = UICtrl.getInput();
     //2. Add newItem into data structure
     listItem = budgetCtrl.addNewItem(newItem);
     //3. Add newItem into UI
     UICtrl.addListItem(listItem,newItem.type);
+    //4. Calculate Budget, get Total current Income & get Total Current Expenses
+    budget = budgetCtrl.calculateBudget();
+    tIncome = budgetCtrl.getTotalIncome();
+    tExpenses = budgetCtrl.getTotalExpenses();
+    //5. Display budget onto UI
+    UICtrl.displayBudget(budget,tIncome,tExpenses);
   };
 
   return {
